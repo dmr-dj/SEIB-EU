@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Specify the job's name (<= 15 letters)
+#PBS -N test-Didier
+# Specify batch queue
+#PBS -q mediump
+# Reserve 1 node with 4 cores
+#PBS -l nodes=1:ppn=16
+# Request that stdin and stdout are merged in the same output file
+#PBS -j eo
+# Send a mail when the job terminates
+#PBS -m e -M isabeau.bertrix@lsce.ipsl.fr
+# Force the shell to be bash
+#PBS -S /bin/bash
+
+. $MODULESHOME/init/bash
+module purge
+module load intel-fcomp/2020
+
+# modify to your iLOVECLIM path ...
+seib_path="${PBS_O_WORKDIR}"
+cd ${seib_path}
+
+# This allows to retreive the machine name with the ".e066565056" file
+uname -a
+make clean && make
+time mpirun go.out
+
+# The End of All Things (op. cit.)

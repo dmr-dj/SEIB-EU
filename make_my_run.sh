@@ -21,7 +21,7 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
 usage() {
   cat <<EOF
-Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] -l name_run arg1 [arg2...]
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] -l name_run -n number_years arg1 [arg2...]
 
 Script description here.
 
@@ -30,6 +30,7 @@ Available options:
 -h, --help      Print this help and exit
 -v, --verbose   Print script debug info
 -l, --label     Name of the run to build
+-n, --nbyears   Number of years to run
 EOF
   exit
 }

@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Specify the job's name (<= 15 letters)
-#PBS -N test-Didier
+#PBS -N test-Isabeau
 # Specify batch queue
-#PBS -q mediump
+#PBS -q longp
 # Reserve 1 node with 4 cores
 #PBS -l nodes=1:ppn=16
 # Request that stdin and stdout are merged in the same output file

@@ -463,7 +463,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT07 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft07.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -474,7 +474,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT08 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft08.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -485,7 +485,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT09 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft09.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -496,7 +496,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT10 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft10.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -507,7 +507,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT11 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft11.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -518,7 +518,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT12 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft12.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -529,7 +529,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT13 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft13.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -540,7 +540,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT14 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft14.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -551,7 +551,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT15 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft15.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -562,7 +562,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    dev.off() 
  #____________________ NPP_PFT16 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
-   PannelStep <- 0.1               #カラーパネルの増分
+   PannelStep <- 0.01               #カラーパネルの増分
    
    z <- read_data('out_npppft16.txt')   #データ読みだしと、整形
    col <- set_color_topo(DivedNum) #色の設定を行う
@@ -736,7 +736,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    draw_dist (DivedNum, PannelStep, col, x, y, z)             #図本体の描画
    draw_panel('LAI max on a day for the year [m2/m2] for Temperate herbaceous(C3)            (TeH)', DivedNum, 4, PannelStep) #カラーパネルを重ね書き
    dev.off() 
- #____________________ NPP_PFT16 ____________________ 
+ #____________________ LAI_PFT16 ____________________ 
    DivedNum   <- 12                #カラーパネルの分割数
    PannelStep <- 0.1               #カラーパネルの増分
    

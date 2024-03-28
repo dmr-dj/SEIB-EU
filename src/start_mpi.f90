@@ -55,10 +55,10 @@ PROGRAM omp_kickoff
    
 !Grid length for simulation
   !(East Siberia @ 0.5deg grid mesh)
-  integer,parameter::LatNoStart = 73 !(N55)
-  integer,parameter::LatNoEnd   = 228 !(N60)
-  integer,parameter::LonNoStart = 665 !(E120)
-  integer,parameter::LonNoEnd   = 920 !(E135)
+  integer,parameter::LatNoStart = 150 !(N55)
+  integer,parameter::LatNoEnd   = 160 !(N60)
+  integer,parameter::LonNoStart = 700 !(E120)
+  integer,parameter::LonNoEnd   = 710 !(E135)
   
 !_____________ Set Variables
    !MPI control variables
@@ -446,6 +446,9 @@ Subroutine after_sim1(LatMax, LonMax, LatNoStart, LatNoEnd, LonNoStart, LonNoEnd
    real,dimension(                                              16)::data4_read
    real,dimension(LatNoStart:LatNoEnd, LonNoStart:LonNoEnd, 12, 16)::data4
 
+   integer,dimension(                                               1)::data5_read
+   integer,dimension(LatNoStart:LatNoEnd, LonNoStart:LonNoEnd, 12,  1)::data5
+
 !Variables for outputting geographic distribution
    real,dimension(LatNoStart:LatNoEnd, LonNoStart:LonNoEnd):: &
       out_water        , & !Water content @ top soil layer, annual average
@@ -496,7 +499,8 @@ write(*,*) "Reading result files and making output variables"
    data2(:,:,:,:) = 0.0
    data3(:,:,:,:) = 0.0
    data4(:,:,:,:) =   0
-   
+   data5(:,:,:,:) =   0
+
    !Loop for each simulation grid
    DO lat = LatNoStart, LatNoEnd
    DO lon = LonNoStart, LonNoEnd
@@ -517,12 +521,13 @@ write(*,*) "Reading result files and making output variables"
          !Sumup all values for YearForMean year (except for Biome code)
          do year  =1, YearForMean
             do month =1, 12
-               read(1,*) data1_read(:), data2_read(:), data3_read(:), data4_read(:)
+               read(1,*) data1_read(:), data2_read(:), data3_read(:), data4_read(:), data5_read(:)
                data1(lat,lon,month,1) =                          data1_read(1) !Biome code
                data1(lat,lon,month,2) = data1(lat,lon,month,2) + data1_read(2) !Drought days
                data2(lat,lon,month,:) = data2(lat,lon,month,:) + data2_read(:) !Other Variables
                data3(lat,lon,month,:) = data3(lat,lon,month,:) + data3_read(:) !Other Variables
                data4(lat,lon,month,:) = data4(lat,lon,month,:) + data4_read(:) !Other Variables
+               data5(lat,lon,month,1) =                          data5_read(1) !dominant PFT
             enddo
          enddo
          
@@ -563,6 +568,7 @@ write(*,*) "Prepare output variables"
    out_water_JJA     (:,:) = 0.0
    out_npp_pft       (:,:,:) = 0.0   
    out_lai_pft       (:,:,:) = 0.0
+
    Do lat   = LatNoStart, LatNoEnd
    Do lon   = LonNoStart, LonNoEnd
       
@@ -677,6 +683,7 @@ write(*,*) "Writing result maps 1"
    Open (55, file=Loc_analysis_files//'out_laipft14.txt'     )
    Open (56, file=Loc_analysis_files//'out_laipft15.txt'     )
    Open (57, file=Loc_analysis_files//'out_laipft16.txt'     )
+   Open (58, file=Loc_analysis_files//'out_pftdominant.txt'  )
    Do lat = LatNoStart, LatNoEnd
       Do lon = LonNoStart, LonNoEnd
       write( 1,'(  i2,a)', advance='no') data1     (lat,lon,12, 1),  ',' !Biome
@@ -708,15 +715,18 @@ write(*,*) "Writing result maps 1"
       
       !Soil Carbon
       write(25,'(f9.2,a)', advance='no') sum(data2(lat,lon,12,3:5)),  ',' !Soil Carbon [kg C / m2]
-
-      do p=1,PFT_no
+ 
+      do p=0,PFT_no-1
 
       !NPP for PFTs
-      write(25+p,'(f12.3,a)', advance='no') out_npp_pft(lat,lon,p),  ',' !npp for pft
+      write(26+p,'(f12.3,a)', advance='no') out_npp_pft(lat,lon,p+1),  ',' !npp for pft
       
       !lai for PFTs
-      write(41+p,'(f12.3,a)', advance='no') out_lai_pft(lat,lon,p),  ',' !npp for pft
+      write(42+p,'(f12.3,a)', advance='no') out_lai_pft(lat,lon,p+1),  ',' !lai for pft
       enddo
+
+      !dominant pft
+      write( 58,'(  i2,a)', advance='no') data5     (lat,lon,12, 1),  ',' !dominant pft
 
       End Do
       
@@ -726,9 +736,9 @@ write(*,*) "Writing result maps 1"
       write(10,*); write(11,*); write(12,*)
       write(20,*); write(21,*); write(22,*)
       write(23,*); write(24,*); write(25,*)
-   Do p =26,57
-   write(p,*)
-   Enddo 
+      Do p =26,58
+      write(p,*)
+      Enddo 
       
    End Do
    
@@ -737,7 +747,7 @@ write(*,*) "Writing result maps 1"
    Close (10); Close (11); Close (12)
    Close (20); Close (21); Close (22)
    Close (23); Close (24); Close (25)
-   Do p =26,57
+   Do p =26,58
    Close (p)
    Enddo 
 END Subroutine after_sim1

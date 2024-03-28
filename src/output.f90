@@ -1094,7 +1094,11 @@ SUBROUTINE output_global (Fn, W_fi, W_wilt, tmp_soil_Today)
 ! dmr&iab -- Added for PFTs splitted output
 
    real, dimension(PFT_no)   :: npp_PFTs
-   
+ 
+!iab -- Added for dominant PFT
+
+   !integer dominant1
+
    integer dry_days             !(day/year)
    
    !for general usage
@@ -1207,7 +1211,7 @@ SUBROUTINE output_global (Fn, W_fi, W_wilt, tmp_soil_Today)
 !print*,pool_snow,sum(flux_ro2_RunningRecord(1:Day_of_Month(doy))),sum(flux_ev_RunningRecord(1:Day_of_Month(doy)))   
 !_____________ Write output-data
 write (Fn,'( 2(1x,i3), 7(1x,f7.2), 1(1x,f9.1), 3(1x,f8.3), 1(1x,f7.1), &
-2(1x,f4.1), 4(1x,f6.1), 1x, f6.0, 1x, f6.2, 1x,f5.3, 4(1x,f8.3), 2(1x,f5.3), 1x,f5.1, 16(1x, f12.3), 16(1x, f12.3))') &
+2(1x,f4.1), 4(1x,f6.1), 1x, f6.0, 1x, f6.2, 1x,f5.3, 4(1x,f8.3), 2(1x,f5.3), 1x,f5.1, 16(1x, f12.3), 16(1x, f12.3), 1x, i3)') &
    biome               , & ! 1: Biome no (classfication)
    Day_in_Year-dry_days, & ! 2: Number of no water stress days [day/year]
    
@@ -1247,8 +1251,8 @@ write (Fn,'( 2(1x,i3), 7(1x,f7.2), 1(1x,f9.1), 3(1x,f8.3), 1(1x,f7.1), &
    frac_crown_coverage                            , & !26: Crown coverage [fraction]
    ald                                            , & !27: Active Layer Depth [m]
    water_available                                , & !28: Available water on the top 5 soil layers [mm]
-   npp_PFTs(:)                                    , & !29 to 45 : monthly sum of NPP
-   lai_maxPFT(:)
-!dominancePFT(:)
+   npp_PFTs(:)                                    , & !29 to 44 : monthly sum of NPP
+   lai_maxPFT(:)                                  , & !45 to 60 : lai max per PFT
+   dominant1                                          !61 dominantPFT
    
 END SUBROUTINE output_global

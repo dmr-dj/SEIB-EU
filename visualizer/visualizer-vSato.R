@@ -348,54 +348,7 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    draw_panel('JJA available Soil Water @ 0-50cm depth (fraction)', DivedNum, 4, PannelStep) #ƒJƒ‰[ƒpƒlƒ‹‚ðd‚Ë‘‚«
    dev.off()                                                                           #ƒfƒoƒCƒXƒhƒ‰ƒCƒo•Â‚¶‚é
    
-#____________________ LAI ____________________ 
-   DivedNum   <- 14                   #ƒJƒ‰[ƒpƒlƒ‹‚Ì•ªŠ„”
-   PannelStep <- 0.5                  #ƒJƒ‰[ƒpƒlƒ‹‚Ì‘•ª
-   
-   col <- set_color_terrain(DivedNum)  #•ªŠ„“_‚ÆF‚ÌÝ’è
-   
-   #•`‰æa1
-   z <- read_data('out_lai_amean.txt')                             #ƒf[ƒ^“Ç‚Ý‚¾‚µ‚ÆA®Œ`
-   png('out_lai_amean.png', width=width_size, height=height_size)  #ƒfƒoƒCƒXƒhƒ‰ƒCƒoŠJ‚­
-   draw_dist_LAI (DivedNum, PannelStep, col, x, y, z)              #}–{‘Ì‚Ì•`‰æ
-   draw_panel('Annual Mean LAI (m2/m2)', DivedNum, 7, PannelStep)  #ƒJƒ‰[ƒpƒlƒ‹‚ðd‚Ë‘‚«
-   dev.off()                                                       #ƒfƒoƒCƒXƒhƒ‰ƒCƒo•Â‚¶‚é
-   
-   #•`‰æa2
-   z <- read_data('out_lai_amean_t.txt')                                        #ƒf[ƒ^“Ç‚Ý‚¾‚µ‚ÆA®Œ`
-   png('out_lai_amean_t.png', width=width_size, height=height_size)             #ƒfƒoƒCƒXƒhƒ‰ƒCƒoŠJ‚­
-   draw_dist_LAI (DivedNum, PannelStep, col, x, y, z)                           #}–{‘Ì‚Ì•`‰æ
-   draw_panel('Annual Mean LAI of Woody PFTs(m2/m2)', DivedNum, 7, PannelStep)  #ƒJƒ‰[ƒpƒlƒ‹‚ðd‚Ë‘‚«
-   dev.off()                                                                    #ƒfƒoƒCƒXƒhƒ‰ƒCƒo•Â‚¶‚é
-   
-   #•`‰æa3
-   z <- read_data('out_lai_amean_g.txt')                                        #ƒf[ƒ^“Ç‚Ý‚¾‚µ‚ÆA®Œ`
-   png('out_lai_amean_g.png', width=width_size, height=height_size)             #ƒfƒoƒCƒXƒhƒ‰ƒCƒoŠJ‚­
-   draw_dist_LAI (DivedNum, PannelStep, col, x, y, z)                           #}–{‘Ì‚Ì•`‰æ
-   draw_panel('Annual Mean LAI of Grass PFT (m2/m2)', DivedNum, 7, PannelStep)  #ƒJƒ‰[ƒpƒlƒ‹‚ðd‚Ë‘‚«
-   dev.off()                                                                    #ƒfƒoƒCƒXƒhƒ‰ƒCƒo•Â‚¶‚é
-   
-   #•`‰æb1
-   z <- read_data('out_lai_max.txt')                                 #ƒf[ƒ^“Ç‚Ý‚¾‚µ‚ÆA®Œ`
-   png('out_lai_max.png', width=width_size, height=height_size)      #ƒfƒoƒCƒXƒhƒ‰ƒCƒoŠJ‚­
-   draw_dist_LAI (DivedNum, PannelStep, col, x, y, z)                #}–{‘Ì‚Ì•`‰æ
-   draw_panel('Annual Maximum LAI (m2/m2)', DivedNum, 7, PannelStep) #ƒJƒ‰[ƒpƒlƒ‹‚ðd‚Ë‘‚«
-   dev.off()                                                         #ƒfƒoƒCƒXƒhƒ‰ƒCƒo•Â‚¶‚é
-   
-   #•`‰æb2
-   z <- read_data('out_lai_max_t.txt')                                            #ƒf[ƒ^“Ç‚Ý‚¾‚µ‚ÆA®Œ`
-   png('out_lai_max_t.png', width=width_size, height=height_size)                 #ƒfƒoƒCƒXƒhƒ‰ƒCƒoŠJ‚­
-   draw_dist_LAI (DivedNum, PannelStep, col, x, y, z)                             #}–{‘Ì‚Ì•`‰æ
-   draw_panel('Annual Maximum LAI of tree PFTs (m2/m2)', DivedNum, 7, PannelStep) #ƒJƒ‰[ƒpƒlƒ‹‚ðd‚Ë‘‚«
-   dev.off()                                                                      #ƒfƒoƒCƒXƒhƒ‰ƒCƒo•Â‚¶‚é
-   
-   #•`‰æb3
-   z  <- read_data('out_lai_max_g.txt')
-   png('out_lai_max_g.png', width=width_size, height=height_size)                  #ƒfƒoƒCƒXƒhƒ‰ƒCƒoŠJ‚­
-   draw_dist_LAI (DivedNum, PannelStep, col, x, y, z)                              #}–{‘Ì‚Ì•`‰æ
-   draw_panel('Annual Maximum LAI of grass PFTs (m2/m2)', DivedNum, 7, PannelStep) #ƒJƒ‰[ƒpƒlƒ‹‚ðd‚Ë‘‚«
-   dev.off()                                                                       #ƒfƒoƒCƒXƒhƒ‰ƒCƒo•Â‚¶‚é
- #____________________ NPP_PFT01 ____________________ 
+   #____________________ NPP_PFT01 ____________________ 
    DivedNum   <- 12                #ƒJƒ‰[ƒpƒlƒ‹‚Ì•ªŠ„”
    PannelStep <- 0.1               #ƒJƒ‰[ƒpƒlƒ‹‚Ì‘•ª
    
@@ -747,3 +700,52 @@ draw_dist_LAI <- function(DivedNum,PannelStep,col,x,y,z) {
    draw_dist (DivedNum, PannelStep, col, x, y, z)             #}–{‘Ì‚Ì•`‰æ
    draw_panel('LAI max on a day for the year [m2/m2] for Tropical herbaceous(C4)             (TrH)', DivedNum, 4, PannelStep) #ƒJƒ‰[ƒpƒlƒ‹‚ðd‚Ë‘‚«
    dev.off() 
+#____________________ Dominant PFT ____________________ 
+   DivedNum   <- 16 #<83>J<83><89><81>[<83>p<83>l<83><8b><82>Ì<95>ª<8a><84><90><94>
+   PannelStep <- 1  #<83>J<83><89><81>[<83>p<83>l<83><8b><82>Ì<91><9d><95>ª
+
+   z <- read_data('out_pftdominant.txt') #<83>f<81>[<83>^<93>Ç<82>Ý<82>¾<82>µ<82>Æ<81>A<90>®<8c>`
+
+   #<90>F<82>Ì<90>Ý<92>è<82>ð<8d>s<82>¤
+   col <- set_color_topo(DivedNum)
+   col[ 1] <- "red1"          # 1 : Tropical broad-leaved evergreen     (TrBE_1) -
+   col[ 2] <- "red2"          # 2 : Tropical broad-leaved evergreen     (TrBE_2)
+   col[ 3] <- "firebrick1"      # 3 : Tropical broad-leaved evergreen     (TrBE_3)
+   col[ 4] <- "firebrick2"      # 4 : Tropical broad-leaved evergreen     (TrBE_4)
+   col[ 5] <- "tomato1"       # 5 : Tropical broad-leaved evergreen     (TrBE_5_Africa)
+   col[ 6] <- "brown1"        # 6 : Tropical broad-leaved raingreen     (TrBR_Africa)
+   col[ 7] <- "yellowgreen"   # 7 : Temperate needle-leaved evergreen   (TeNE)
+   col[ 8] <- "olivedrab"     # 8 : Mediterranean    (TeBE)
+   col[ 9] <- "forestgreen"   # 9 : Temperate broad-leaved summergreen  (TeBS)
+   col[10] <- "springgreen4"  # 10 : Boreal needle-leaved evergreen      (BoNE)
+   col[11] <- "aquamarine"    # 11 : Pice obovata (East Siberia)
+   col[12] <- "cyan4"         # 12 : Pinus sylvestris (East Siberia)
+   col[13] <- "steelblue3"    # 13 : Boreal needle-leaved summergreen    (BoNS)
+   col[14] <- "turquoise2"    # 14 : Boreal broad-leaved summergreen     (BoBS)
+   col[15] <- "bisque"        # 15 : Temperate herbaceous(C3)            (TeH)
+   col[16] <- "orange"        # 16 : Tropical herbaceous(C4)             (TrH)
+   png('out_pftdominant.png', width=width_size, height=height_size) #<83>f<83>o<83>C<83>X<83>h<83><89><83>C<83>o<8a>J<82>­
+   draw_dist (DivedNum, PannelStep, col, x, y, z)             #<90>}<96>{<91>Ì<82>Ì<95>`<89>æ
+
+   #<96>}<97>á<82>Ì<95>`<89>æ ______
+   x_start <-   -13
+   x_width <-    2
+   y_start <-    73  #<97>]<94><92><82>ð<8a>Ü<82>Þ
+   y_width <-    2
+
+   # <98>g<8a>O<82>Ö<82>Ì<95>`<89>æ<82>ð<8b><96><89>Â
+   par(xpd=T)
+
+   #Write label on top of the color pannel
+   text(x_start+5, y_start-2*y_width, pos=1, "Dominant PFT")
+
+   #Draw color pannel
+   for (j in 1:DivedNum) {
+      polygon( c(x_start, x_start+x_width, x_start+x_width, x_start), c(y_start, y_start, y_start-y_width, y_start-y_width), col=col[j])
+      text(x_start+0.5*x_width, y_start-y_width, pos=1, j)
+      x_start <- x_start+x_width
+   }
+
+   #<83>f<83>o<83>C<83>X<83>h<83><89><83>C<83>o<95>Â<82>¶<82>é ______
+   dev.off()
+

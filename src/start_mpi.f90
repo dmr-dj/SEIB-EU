@@ -341,7 +341,12 @@ Subroutine start (myid, latNo, lonNo, aco2_1850to2100, &
       rad_short    (doy,year)   = dataREAD1(doy,year,4)
       rad_long     (doy,year)   = dataREAD1(doy,year,5)
       wind         (doy,year)   = dataREAD1(doy,year,6)
-      rh           (doy,year)   = dataREAD1(doy,year,7)
+      if (dataREAD1(doy,year,7) > 100) then
+              rh   (doy,year) = 100
+      else
+              rh   (doy,year) = dataREAD1(doy,year,7)
+      endif
+
    enddo
    enddo
    

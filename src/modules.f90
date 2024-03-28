@@ -396,6 +396,7 @@ MODULE vegi_status_current1
 	
 	!Variables for whole vegetation
 	integer biome          !biome type (Definition ->subroutine biome_type)
+        integer dominant1
 !	real    lai            !Total LAI @ update everyday             (m2/m2)
 	
 	!Variables for each PFT

@@ -55,10 +55,10 @@ PROGRAM omp_kickoff
    
 !Grid length for simulation
   !(East Siberia @ 0.5deg grid mesh)
-  integer,parameter::LatNoStart = 150 !(N55)
-  integer,parameter::LatNoEnd   = 160 !(N60)
-  integer,parameter::LonNoStart = 700 !(E120)
-  integer,parameter::LonNoEnd   = 710 !(E135)
+  integer,parameter::LatNoStart =  73 !(N55)
+  integer,parameter::LatNoEnd   = 228 !(N60)
+  integer,parameter::LonNoStart = 665 !(E120)
+  integer,parameter::LonNoEnd   = 920 !(E135)
   
 !_____________ Set Variables
    !MPI control variables

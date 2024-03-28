@@ -366,7 +366,7 @@ SUBROUTINE biome_determine ()
    implicit none
    
 !Local variables
-   integer dominant1, dominant2 !
+   
    real    lai_max              !
    integer p, doy               !for general usage
    real    x                    !for general usage

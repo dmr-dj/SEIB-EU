@@ -16,14 +16,14 @@ PROGRAM omp_kickoff
 !  character(len=*),parameter::Loc_CO2_files='co2_1850_2100_rcp26.dat' !RCP2.6
 
 !Directory of climate data for future projection
- character(len=*),parameter::Loc_climate_data2='/home/clim01/roche/DATA-EuropeDown-withBiasCorr-IAB/DATA-EWEMBI/old_stuff/EWEMBI-Europe-SEIB_1979-2016/'
+ character(len=*),parameter::Loc_climate_data2='/homedata/ibertrix/Climate_data/EWEMBI-Europe-SEIB_1979-2016/'
 
  !character(len=*),parameter::Loc_climate_data2='/work/G10203/hsato/climate_MirocAR5Base_daily_0.5deg_V3/RCP85/'
  !character(len=*),parameter::Loc_climate_data2='/work/G10203/hsato/climate_MirocAR5Base_daily_0.5deg_V3/RCP26/'
 
 !Directory of climate data for histrical reconstruction
 ! character(len=*),parameter::Loc_climate_data1='/work/G10203/hsato/climate_MirocAR5Base_daily_0.5deg_V3/historical/'
- character(len=*),parameter::Loc_climate_data1='/home/clim01/roche/DATA-EuropeDown-withBiasCorr-IAB/DATA-EWEMBI/old_stuff/EWEMBI-Europe-SEIB_1979-2016/'   
+ character(len=*),parameter::Loc_climate_data1='/homedata/ibertrix/Climate_data/EWEMBI-Europe-SEIB_1979-2016/'   
 
 !Set year number of climate & CO2 data
    integer,parameter::YearMaxClimate1 = 38  !historical(1850-2005)

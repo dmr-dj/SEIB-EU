@@ -210,6 +210,7 @@ integer,allocatable :: seed(:)
 !***********************  set NameList  *************************
     namelist /Control/        &
         Simulation_year, &
+        obliquity, &
         Flag_spinup_read, Flag_spinup_write, Flag_output_write, &
         Flag_land_physics, Flag_photosynthesis_type, Flag_randomization, &
         Max_loc, Depth, STEP, &

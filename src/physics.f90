@@ -60,7 +60,7 @@ SUBROUTINE radiation_seasonal_change (LAT)
 !_____________ Main part
 Do doy=1, Day_in_Year
    !sl_dec: solar declination (degree)
-      sl_dec(doy) = 23.45 * sin(DtoR * 360.0 * ( real(doy) - 81.0 ) / Day_in_Year)
+      sl_dec(doy) = obliquity * sin(DtoR * 360.0 * ( real(doy) - 81.0 ) / Day_in_Year)
    
    !sl_hgt: solar hight at midday (degree)
       x           = sin(LAT * DtoR) * sin(sl_dec(doy) * DtoR) + &

@@ -115,7 +115,7 @@ cp -p config/Makefile wkdir/${namerun}/.
 cp -pr visualizer/ wkdir/${namerun}/.
 mkdir wkdir/${namerun}/result_tmp
 mkdir wkdir/${namerun}/result_visualize
-cp -p SEIB-IAB.job wkdir/${namerun}/.
+cp -p SEIB-IAB-SPIRIT.job wkdir/${namerun}/.
 
 msg "${GREEN}Finalized setup in wkdir/${namerun}${NOFORMAT}"
 

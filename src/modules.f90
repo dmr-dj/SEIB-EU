@@ -75,7 +75,9 @@ Month = (/&
 !_____________ Parameters that will be initialized using parameter.txt
 !Control
 integer,save:: Simulation_year   !simulation year (yr)
-
+real,save:: obliquity
+real,save:: eccentricity
+real,save:: precession
 logical,save:: Flag_spinup_read         !flag: restart from spinup files or not
 logical,save:: Flag_spinup_write        !flag: make spinup files or not
 logical,save:: Flag_output_write        !flag: make output files or not
@@ -209,8 +211,8 @@ integer,allocatable :: seed(:)
 
 !***********************  set NameList  *************************
     namelist /Control/        &
-        Simulation_year, &
-        obliquity, &
+        Simulation_year,&
+        obliquity, eccentricity, precession, &
         Flag_spinup_read, Flag_spinup_write, Flag_output_write, &
         Flag_land_physics, Flag_photosynthesis_type, Flag_randomization, &
         Max_loc, Depth, STEP, &
@@ -599,6 +601,12 @@ MODULE grid_status_current2
    !Physical status of radiation
    real sl_hgt           (Day_in_Year)  !solar hight at midday (degree)
    real sl_dec           (Day_in_Year)  !solar  declination    (degree)
+   real lambda           (Day_in_Year)
+   real v                (Day_in_Year)
+   real E                (Day_in_Year)
+   real Ei               (9)
+   real t                (Day_in_Year)
+   real Mm               (Day_in_Year)
    real dlen             (Day_in_Year)  !day length (hour)
    real rad_stratosphere (Day_in_Year)  ! shortwave radiation at the atmosphere-top (W/m2) 
    

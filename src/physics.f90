@@ -13,8 +13,7 @@ SUBROUTINE air (tmp_air, rh, ALT)
    real,intent(IN)  ::tmp_air   !2m air temperature (Celcius)
    real,intent(IN)  ::rh        !relative humidity (kg  kg-1)
    real,intent(IN)  ::ALT       !altitude (m above MSL)
-   
-!_____________ Main part
+  !_____________ Main part
 !ap: air pressure (hPa)
    ap = 1013.25 * exp ( -0.2838472*ALT /(8.3144*(tmp_air+ABS_ZERO)) )
    
@@ -54,14 +53,42 @@ SUBROUTINE radiation_seasonal_change (LAT)
    
 !Local variables
    real    ha         !angle from sun-rise to median passage (degree)
-   integer doy        !day of year (1~Day_in_Year)
-   real    x, a1, a2  !for general usage
+   integer doy, i        !day of year (1~Day_in_Year)
+   real    x, a1, a2, t0, teqperi, Meqperi, Eeqperi, veqperi !for general usage
    
+   veqperi = - pi - ((pi/180)* precession)
+   Eeqperi = 2 * atan(sqrt((1-eccentricity)/(1+eccentricity))*tan(veqperi/2))
+   Meqperi = Eeqperi - eccentricity * sin(Eeqperi)
+   teqperi = (Meqperi * Day_in_Year) / (2*pi)
+   t0 = 80 - teqperi
+   !WRITE(*,*)'t0=',t0 
+Do doy=1, Day_in_Year
+   t(doy) = doy - t0
+   Mm(doy) = 2*pi*t(doy)/Day_in_Year
+   E(doy) = Mm(doy)
+   Do i=1, 8
+      E(doy) = Mm(doy) + eccentricity * sin(E(doy))
+   End Do
+   !WRITE(*,*)'Mm(doy)=',Mm(doy),'E(doy)=',E(doy), doy
+End Do
+
+Do doy=1, Day_in_Year
+   v(doy) = 2 * atan(sqrt((1+eccentricity)/(1-eccentricity))*tan(E(doy)/2)) 
+   lambda(doy) =  v(doy) + pi + ((pi/180)*precession)
+   lambda(doy) = lambda(doy) * 180/pi !radians to degrees
+   if (lambda(doy) >= 360) then
+           lambda(doy) = lambda(doy) - 360
+   else
+           lambda(doy) = lambda(doy)
+   endif
+   !WRITE(*,*)'lambda=',lambda(doy),doy
+End Do
 !_____________ Main part
 Do doy=1, Day_in_Year
    !sl_dec: solar declination (degree)
-      sl_dec(doy) = obliquity * sin(DtoR * 360.0 * ( real(doy) - 81.0 ) / Day_in_Year)
-   
+     ! sl_dec(doy) = obliquity * sin(DtoR * 360.0 * ( real(doy) - 81.0 ) / Day_in_Year)
+     sl_dec(doy) = asin(sin(lambda(doy)*pi/180)*sin(obliquity*pi/180)) *180/pi
+     !WRITE(*,*)'Sl_dec(doy) =',sl_dec(doy),'lambda(doy)=',lambda(doy), doy
    !sl_hgt: solar hight at midday (degree)
       x           = sin(LAT * DtoR) * sin(sl_dec(doy) * DtoR) + &
                     cos(LAT * DtoR) * cos(sl_dec(doy) * DtoR)
@@ -76,13 +103,13 @@ Do doy=1, Day_in_Year
          ha          = RtoD * acos( min(1.0, max(-1.0, x)) ) !angle from sun-rise to median passage
          dlen (doy)  = 2.0 * (ha / 15.0)
       endif
-   
+   !WRITE(*,*)'sl_hgt(doy)=',sl_hgt(doy), doy, 'dlen(doy)=', dlen(doy)
    !rad_stratosphere: shortwave radiation at the atmosphere-top (W/m2) 
-      a1 = DtoR * 360.0 * (real(doy)/Day_in_Year) !seasonal angle of the earth's orbit (radian)
-      a2 = 1.00011 + 0.034221 * cos(a1) + 0.00128 * sin(a1) + &
-           0.000719 * cos(2.0*a1) + 0.000077 * sin(2.0*a1)
+      !a1 = DtoR * 360.0 * (real(doy)/Day_in_Year) !seasonal angle of the earth's orbit (radian)
+      !a2 = 1.00011 + 0.034221 * cos(a1) + 0.00128 * sin(a1) + &
+       !   0.000719 * cos(2.0*a1) + 0.000077 * sin(2.0*a1)
+      a2 = 1.0 - eccentricity * cos(0.9856*(doy-t0))
       rad_stratosphere (doy) = max(0.0, 1367.0 * sin(sl_hgt(doy) * DtoR) * a2)
-   
 End Do
 
 END SUBROUTINE radiation_seasonal_change
@@ -92,8 +119,7 @@ END SUBROUTINE radiation_seasonal_change
 !**************************************************************************************************
 ! Radiation properties
 !**************************************************************************************************
-SUBROUTINE radiation (LAT, rad_short, cloud)
-
+SUBROUTINE radiation (LAT, rad_short, cloud )
 !_____________ Set variables
 !Namespace
    USE data_structure
@@ -104,9 +130,9 @@ SUBROUTINE radiation (LAT, rad_short, cloud)
    
 !Augments
    real   ,intent(IN) ::LAT       !latitude  (degree)
-   real   ,intent(IN) ::rad_short !shortwave radiation @ midday (W/m2)
+   real   ,intent(IN) ::rad_short !shortwave radiation @ midday (W/m2) 
    real   ,intent(OUT)::cloud     !total cloudness (fraction)
-   
+
 !Local variables
    real    rad_diffuse   !diffused radiation in rad (W/m2)
    real    rad_direct    !direct radiation in rad (W/m2)
@@ -132,7 +158,7 @@ endif
    x       = rad_short / max(0.01, rad_stratosphere(dom_mid))
    cloud   = (0.8964 - x) / 0.5392
    cloud   = max(0.0, min(cloud, 1.0))
-   
+   !WRITE(*,*)'cloud_iab =',cloud
 !par: photosynthetically active radiation in mid_day (micro mol photon m-2 s-1)
 !   based  on  the  empirical  Tooming's  equation
    if(rad_stratosphere(doy) /= 0.0) then
@@ -201,7 +227,7 @@ END SUBROUTINE albedo_calc
 !**************************************************************************************************
 ! Net radiation
 !**************************************************************************************************
-SUBROUTINE net_radiation (tmp_air, rad_short, rad_long, cloud)
+SUBROUTINE net_radiation (tmp_air, rad_short, rad_long)
 
 !_____________ Set variables
 !Namespace
@@ -217,7 +243,6 @@ SUBROUTINE net_radiation (tmp_air, rad_short, rad_long, cloud)
    real,intent(IN)::tmp_air      !2m air temperature (Celcius)
    real,intent(IN)::rad_short    !downward shortwave radiation (W/m2)
    real,intent(IN)::rad_long     !downward longwave  radiation (W/m2)
-   real,intent(IN)::cloud        !total cloudness, fraction
    
 !_____________ Main part
 !radlong_up: longwave radiation (+:Upward direction) PREVIOUS 
